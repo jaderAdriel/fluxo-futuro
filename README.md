@@ -10,6 +10,12 @@ O **FluxoFuturo** é uma plataforma desenvolvida em **Django** projetada para of
 
 ---
 
+## 📌 **Funcionalidades do Sistema**
+
+O sistema é organizado em cinco módulos principais — **Contas**, **Categorias**, **Transações**, **Orçamentos** e **Metas** — todos vinculados a um usuário autenticado.
+Cada parte cumpre um papel essencial na visão de fluxo financeiro futuro. Veja **[aqui](docs/classe.md)** as funcionalidades.
+
+
 ## 🛠 Tecnologias e Ferramentas
 
 Este projeto utiliza uma stack moderna focada em performance e manutenibilidade:

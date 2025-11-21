@@ -70,16 +70,10 @@ classDiagram
     Conta --> Meta : acumula
 
 ```
----
-
-# 📌 **Funcionalidades do Sistema**
-
-O sistema é organizado em cinco módulos principais — **Contas**, **Categorias**, **Transações**, **Orçamentos** e **Metas** — todos vinculados a um usuário autenticado.
-Cada parte cumpre um papel essencial na visão de fluxo financeiro futuro.
 
 ---
 
-## 🔐 **Usuários**
+### **Usuários**
 
 Cada usuário possui e gerencia seus próprios dados financeiros.
 
@@ -99,7 +93,7 @@ Não existe compartilhamento de dados entre usuários.
 
 ---
 
-## 🏦 **Contas**
+### **Contas**
 
 Representam onde o dinheiro do usuário está guardado.
 
@@ -116,7 +110,7 @@ Exemplos: conta bancária, carteira, poupança, cartão, Pix.
 
 ---
 
-## 🧾 **Categorias**
+### **Categorias**
 
 Organizam as transações em tipos específicos.
 
@@ -131,7 +125,7 @@ Exemplos: Mercado, Transporte, Salário, Lazer.
 
 ---
 
-## 💸 **Transações**
+### **Transações**
 
 Coração do sistema: entradas e saídas do fluxo financeiro.
 
@@ -147,7 +141,7 @@ Coração do sistema: entradas e saídas do fluxo financeiro.
 
 ---
 
-## 📆 **Orçamentos**
+### **Orçamentos**
 
 Limites mensais para gastos em categorias específicas.
 
@@ -165,7 +159,7 @@ Limites mensais para gastos em categorias específicas.
 
 ---
 
-## 🎯 **Metas**
+### **Metas**
 
 Objetivos financeiros do usuário: juntar dinheiro aos poucos.
 
