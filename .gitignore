@@ -21,6 +21,11 @@ env/
 # --- Uv ---
 .uv/
 
+# --- npm
+
+node_modules
+node_modules/*
+
 # --- Django ---
 *.log
 *.pot
@@ -254,3 +259,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+src/static/dist/
+
+migrations

@@ -1,0 +1,36 @@
+{
+  "name": "fluxo-futuro",
+  "version": "0.1.0",
+  "description": "![Python](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge&logo=python) ![Django](https://img.shields.io/badge/Django-5.0-green?style=for-the-badge&logo=django) ![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker) ![uv](https://img.shields.io/badge/uv-Fast%20Package%20Manager-purple?style=for-the-badge)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaderAdriel/fluxo-futuro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jaderAdriel/fluxo-futuro/issues"
+  },
+  "homepage": "https://github.com/jaderAdriel/fluxo-futuro#readme",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8",
+    "perfect-scrollbar": "^1.5.6",
+    "sass": "^1.80.0",
+    "smooth-scrollbar": "^8.8.4"
+  },
+  "devDependencies": {
+    "vite": "^7.2.4"
+  }
+}
