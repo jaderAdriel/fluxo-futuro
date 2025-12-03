@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+    {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Transações" %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mt-4">
+        <div class="card min-vh-70">
+            {% include "components/card_header.html" with title="Permissões" %}
+
+            <div class="card-body">
+                <p class="text-sm">
+                    Esta é uma página simples usando o layout base.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
