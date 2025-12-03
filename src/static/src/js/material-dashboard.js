@@ -60,11 +60,19 @@ function setAttributes(el, options) {
 
 // adding on inputs attributes for calling the focused and defocused functions
 if (document.querySelectorAll('.input-group').length != 0) {
-  var allInputs = document.querySelectorAll('input.form-control');
-  allInputs.forEach(el => setAttributes(el, {
-    "onfocus": "focused(this)",
-    "onfocusout": "defocused(this)"
-  }));
+  const allInputs = document.querySelectorAll('input.form-control');
+  allInputs.forEach(el => {
+    setAttributes(el, {
+      "onfocus": focused(el),
+      "onfocusout": defocused(el)
+    });
+
+    if (el.value?.trim() !== "") {
+      el.classList.add("focused");
+      el.focus();
+    }
+
+  });
 }
 
 
@@ -559,6 +567,12 @@ window.onload = function() {
       }
       this.parentElement.classList.remove('is-focused');
     }, false);
+  }
+
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].value.trim() !== "") {
+      inputs[i].parentElement.classList.add('is-filled');
+    }
   }
 
   // Ripple Effect
