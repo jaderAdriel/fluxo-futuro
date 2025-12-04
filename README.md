@@ -1,32 +1,11 @@
 
-# 🚀 FluxoFuturo
+# 🚀 C.A Gestão
 
 ![Python](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge&logo=python)
 ![Django](https://img.shields.io/badge/Django-5.0-green?style=for-the-badge&logo=django)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)
 ![uv](https://img.shields.io/badge/uv-Fast%20Package%20Manager-purple?style=for-the-badge)
 
-O **FluxoFuturo** é uma plataforma desenvolvida em **Django** projetada para oferecer organização financeira pessoal de forma eficiente, segura e escalável.
-
----
-
-## 📌 **Funcionalidades do Sistema**
-
-O sistema é organizado em cinco módulos principais — **Contas**, **Categorias**, **Transações**, **Orçamentos** e **Metas** — todos vinculados a um usuário autenticado.
-Cada parte cumpre um papel essencial na visão de fluxo financeiro futuro. Veja **[aqui](docs/classe.md)** as funcionalidades.
-
-
-## 🛠 Tecnologias e Ferramentas
-
-Este projeto utiliza uma stack moderna focada em performance e manutenibilidade:
-
-- **Python 3.13**: A versão mais recente da linguagem.
-- **Django**: Framework web de alto nível para desenvolvimento rápido.
-- **uv**: Gerenciador de pacotes e projetos Python extremamente rápido, escrito em Rust. Substitui o `pip` e `poetry` com tempos de resolução de dependências quase instantâneos.
-- **PostgreSQL 15**: Banco de dados relacional robusto.
-- **Docker & Docker Compose**: Para orquestração de containers e ambiente de desenvolvimento padronizado.
-
----
 
 ## ⚡ Gerenciamento de Dependências com `uv`
 

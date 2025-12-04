@@ -14,12 +14,19 @@ __pycache__/
 
 # --- Virtual environments ---
 .env
+*.secrets
+*.env
 .venv
 venv/
 env/
 
 # --- Uv ---
 .uv/
+
+# --- npm
+
+node_modules
+node_modules/*
 
 # --- Django ---
 *.log
@@ -254,3 +261,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+src/static/dist/
+
+migrations

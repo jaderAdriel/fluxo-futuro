@@ -1,0 +1,52 @@
+name: CI Backend
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+        
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Criar .env
+        run: |
+          echo "DB_HOST=${{ vars.DB_HOST }}" >> .env
+          echo "DB_NAME=${{ vars.DB_NAME }}" >> .env
+          echo "DB_USER=${{ vars.DB_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+          echo "DEBUG=True" >> .env
+          echo "ALLOWED_HOSTS=*" >> .env
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Subir Docker Compose
+        run: docker compose up -d --build
+
+      - name: Aguardar serviços subirem
+        run: sleep 20
+
+
+      - name: Verificar healthcheck dos containers
+        run: |
+          echo "Aguardando serviços ficarem prontos..."
+          sleep 20
+
+          unhealthy=$(docker ps --filter "health=unhealthy" -q)
+          if [ -n "$unhealthy" ]; then
+            echo "Containers com erro:"
+            docker ps --filter "health=unhealthy"
+            exit 1
+          fi
+
+      - name: Derrubar compose
+        if: always()
+        run: docker compose down -v
