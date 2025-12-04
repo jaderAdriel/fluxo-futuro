@@ -25,16 +25,16 @@ jobs:
           echo "DEBUG=True" >> .env
           echo "ALLOWED_HOSTS=*" >> .env
         
-      - name: Instalar Docker e Compose
+      - name: Install Docker and Compose
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io docker-compose-plugin
+            sudo apt-get update
+            sudo apt-get install -y docker.io docker-buildx-plugin docker-compose-v2
 
       - name: Subir Docker Compose
         run: docker compose up -d --build
 
       - name: Aguardar serviços subirem
-        run: sleep 60
+        run: sleep 90
 
 
       - name: Verificar healthcheck dos containers
@@ -48,7 +48,7 @@ jobs:
             docker ps --filter "health=unhealthy"
             exit 1
           fi
-          
+
       - name: Testar porta da API
         run: curl -f http://localhost:8000/health || exit 1
 
