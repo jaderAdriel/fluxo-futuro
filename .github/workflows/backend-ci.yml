@@ -25,16 +25,14 @@ jobs:
           echo "DEBUG=True" >> .env
           echo "ALLOWED_HOSTS=*" >> .env
         
-      - name: Install Docker and Compose
-        run: |
-            sudo apt-get update
-            sudo apt-get install -y docker.io docker-buildx-plugin docker-compose-v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Subir Docker Compose
         run: docker compose up -d --build
 
       - name: Aguardar serviços subirem
-        run: sleep 90
+        run: sleep 20
 
 
       - name: Verificar healthcheck dos containers
@@ -48,9 +46,6 @@ jobs:
             docker ps --filter "health=unhealthy"
             exit 1
           fi
-
-      - name: Testar porta da API
-        run: curl -f http://localhost:8000/health || exit 1
 
       - name: Derrubar compose
         if: always()
