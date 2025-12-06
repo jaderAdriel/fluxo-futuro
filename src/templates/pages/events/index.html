@@ -11,9 +11,24 @@
             {% include "components/card_header.html" with title="Eventos" %}
 
             <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
+                <div class="card-body">
+                    {% if events %}
+                        <ul>
+                            {% for event in events %}
+                                <li>
+                                    <strong>{{ event.title }}</strong><br>
+                                    {{ event.date }} - {{ event.location }}<br>
+                                    {{ event.description }}
+                                    <a href="{% url 'edit-event' event.id %}" class="btn btn-sm btn-secondary">Editar</a>
+                                    <a href="{% url 'delete-event' event.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-sm">Nenhum evento cadastrado.</p>
+                    {% endif %}
+                    <a href="{% url 'create-event' %}" class="btn btn-primary">Novo evento</a>
+                </div>
             </div>
         </div>
     </div>
