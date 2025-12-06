@@ -1,5 +1,16 @@
 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+
     <div class="{{ bg|default:'bg-gradient-dark' }} shadow-dark border-radius-lg pt-4 pb-3">
-        <h6 class="text-white text-capitalize ps-3">{{ title }}</h6>
+        <h6 class="text-white text-capitalize ps-3">
+            {% if is_create %} 
+                Criar
+            {% elif is_edit %} 
+                Editar
+            {% elif is_delete %} 
+                Deletar 
+            {% endif%}
+    
+            {{ title }}
+        </h6>
     </div>
 </div>

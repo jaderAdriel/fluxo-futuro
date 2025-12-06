@@ -9,11 +9,56 @@
     <div class="col-12 mt-4">
         <div class="card min-vh-70">
             {% include "components/card_header.html" with title="Gestões" %}
-
+  
             <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'create-management' %}" class="btn btn-primary">
+                      Criar gestão
+                    </a>
+                </div>
+                
+                <div class="p-0">
+                  <table class="table mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-left">Nome da gestão</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-left">Início</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-left">Final</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {% for management in management_list%}
+                        <tr>
+                          <td class="text-left text-secondary"><span class="mb-0 text-sm ">{{ management.name}}</span></td>
+                          <td class="text-left text-secondary"><span class="mb-0 text-sm ">{{ management.begin_date|date:"d/m/y" }}</span></td>
+                          <td class="text-left text-secondary"><span class="mb-0 text-sm ">{{ management.end_date|date:"d/m/y" }}</span></td>
+                          <td class="">
+                            <div class="d-flex justify-content-center mw-20 gap-4">
+                              {% if perms.management.detail_management %}
+                                <a href="{% url 'detail-management' management.id %}" class="text-muted">
+                                  <i class="material-symbols-rounded ">eye_tracking</i>
+                                </a>
+                              {% endif %}
+                              {% if perms.management.change_management %}
+                                <a href="{% url 'edit-management' management.id %}" class="text-muted text-sm">
+                                  <i class="material-symbols-rounded">edit</i>
+                                </a>
+                              {% endif %}
+                              {% if perms.management.delete_management %}
+                                <a href="{% url 'delete-management' management.id %}" class="text-muted">
+                                  <i class="material-symbols-rounded">delete</i>
+                                </a>
+                              {% endif %}
+                            </div>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
             </div>
         </div>
     </div>

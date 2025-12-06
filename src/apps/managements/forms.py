@@ -1,17 +1,18 @@
 from django import forms
-from .models import Unidade
+from .models import Management
+from config.form import BaseStyledForm
 
 # Formulário principal para criação e edição de Gestões
-class ManagementForm(forms.ModelForm):
+class ManagementForm(BaseStyledForm):
     class Meta:
-        model = Unidade  # Modelo associado ao formulário
+        model = Management  # Modelo associado ao formulário
         fields = ['name', 'begin_date', 'end_date']  # Campos que serão exibidos no formulário
 
         # Widgets personalizados para estilização e placeholders
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'begin_date': forms.DateInput(attrs={'class': 'form-control'}),
-            'end_date': forms.DateInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(),
+            'begin_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
 

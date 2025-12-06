@@ -5,7 +5,9 @@ description = "Sistema para organização financeira"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "crispy-bootstrap5>=2025.6",
     "django>=5.2.8",
+    "django-crispy-forms>=2.5",
     "django-vite>=3.1.0",
     "psycopg>=3.2.12",
     "python-dotenv>=1.2.1",
