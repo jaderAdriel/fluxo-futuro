@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Event
 from .forms import EventForm
 
-def index(request):
+
+def list_events(request):
     events = Event.objects.all()
     return render(request, 'pages/events/index.html', {'events': events})
+
 
 def create_event(request):
     if request.method == 'POST':
@@ -14,10 +16,17 @@ def create_event(request):
             return redirect('list-events')
     else:
         form = EventForm()
-    return render(request, 'pages/events/create.html', {'form': form})
 
-def edit_event(request, pk):
-    event = get_object_or_404(Event, pk=pk)
+    context = {
+        'form': form,
+        'is_create': True,
+    }
+    return render(request, 'pages/events/form.html', context=context)
+
+
+def edit_event(request, id):
+    event = get_object_or_404(Event, id=id)
+
     if request.method == 'POST':
         form = EventForm(request.POST, instance=event)
         if form.is_valid():
@@ -25,12 +34,28 @@ def edit_event(request, pk):
             return redirect('list-events')
     else:
         form = EventForm(instance=event)
-    return render(request, 'pages/events/edit.html', {'form': form, 'event': event})
 
-def delete_event(request, pk):
-    event = get_object_or_404(Event, pk=pk)
+    context = {
+        'form': form,
+        'event': event,
+        'is_edit': True,
+    }
+    return render(request, 'pages/events/form.html', context=context)
+
+
+def delete_event(request, id):
+    event = get_object_or_404(Event, id=id)
+
     if request.method == 'POST':
         event.delete()
         return redirect('list-events')
-    return render(request, 'pages/events/delete.html', {'event': event})
 
+    context = {
+        'event': event,
+        'is_delete': True,
+    }
+    return render(request, 'pages/events/form.html', context=context)
+
+def detail_event(request, id):
+    event = get_object_or_404(Event, id=id)
+    return render(request, 'pages/events/detail.html', {'event': event})

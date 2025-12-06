@@ -1,17 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12 mt-4">
-        <div class="card min-vh-70">
-            {% include "components/card_header.html" with title="Detalhe .." %}
-
-            <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+<h1>{{ event.title }}</h1>
+<p>{{ event.date }} - {{ event.location }}</p>
+<p>{{ event.description }}</p>
+<a href="{% url 'edit-event' event.id %}">Editar</a>
+<a href="{% url 'delete-event' event.id %}">Excluir</a>
+<a href="{% url 'list-events' %}">Voltar</a>
 {% endblock %}
