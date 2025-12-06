@@ -21,6 +21,7 @@
                                     {{ event.description }}
                                     <a href="{% url 'edit-event' event.id %}" class="btn btn-sm btn-secondary">Editar</a>
                                     <a href="{% url 'delete-event' event.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                                    <a href="{% url 'detail-event' event.id %}" class="btn btn-sm btn-info">Detalhes</a>
                                 </li>
                             {% endfor %}
                         </ul>
