@@ -6,10 +6,13 @@ class MeetingForm(forms.ModelForm):
         model = Meeting
         fields = ['title', 'date', 'location', 'description']
         widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
             'date': forms.DateTimeInput(
-                attrs={'type': 'datetime-local'},
-                format='%Y-%m-%dT%H:%M'
-            )
+                attrs={'type': 'datetime-local', 'class': 'form-control'},
+                format='%Y-%m-%dT%H:%M',
+            ),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
     def __init__(self, *args, **kwargs):
