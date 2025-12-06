@@ -4,12 +4,39 @@
 <div class="row">
     <div class="col-12 mt-4">
         <div class="card min-vh-70">
-            {% include "components/card_header.html" with title="Formulário .." %}
+            {% if is_create %}
+                {% include "components/card_header.html" with title="Nova reunião" %}
+            {% elif is_edit %}
+                {% include "components/card_header.html" with title="Editar reunião" %}
+            {% elif is_delete %}
+                {% include "components/card_header.html" with title="Excluir reunião" %}
+            {% else %}
+                {% include "components/card_header.html" with title="Reunião" %}
+            {% endif %}
 
             <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% if is_delete %}
+                        <p class="text-sm">
+                            Tem certeza que deseja excluir a reunião
+                            <strong>{{ meeting.title }}</strong>?
+                        </p>
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Confirmar exclusão
+                        </button>
+                    {% else %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            {% if is_create %}Salvar{% else %}Atualizar{% endif %}
+                        </button>
+                    {% endif %}
+                </form>
+
+                <a href="{% url 'list-meetings' %}" class="btn btn-link btn-sm mt-3">
+                    Voltar para lista
+                </a>
             </div>
         </div>
     </div>
