@@ -11,12 +11,13 @@
             {% include "components/card_header.html" with title="Departamentos" %}
   
             <div class="card-body">
+                {% if perms.departments.add_department %}
                 <div class="d-flex justify-content-end">
                     <a href="{% url 'create-department' %}" class="btn btn-primary">
                       Criar gestão
                     </a>
                 </div>
-                
+                {% endif %}
                 <div class="p-0">
                   <table class="datatable mb-0" id="table"
                     data-columns='[
@@ -46,19 +47,19 @@
                           <td data-field="created" class="">{{ department.created_at }}</td>
                           <td data-field="actions" class="d-flex">
                               <div class="d-flex justify-content-between">
-                                {% if perms.department.detail_department %}
+                                {% if perms.departments.view_department %}
                                   <a href="{% url 'detail-department' department.id %}" class="text-muted">
                                     <i class="material-symbols-rounded text-sm" title="Detalhar departamento com id {{ department.id }}">eye_tracking</i>
                                     Detalhar
                                   </a>
                                 {% endif %}
-                                {% if perms.department.change_department %}
+                                {% if perms.departments.change_department %}
                                   <a href="{% url 'edit-department' department.id %}" class="text-muted text-sm ">
                                     <i class="material-symbols-rounded text-sm" title="Alterar departamento com id {{ department.id }}">edit</i> 
                                     Editar
                                   </a>
                                 {% endif %}
-                                {% if perms.department.delete_department %}
+                                {% if perms.departments.delete_department %}
                                   <a href="{% url 'delete-department' department.id %}" class="text-muted">
                                     <i class="material-symbols-rounded text-sm" title="Deletar departamento com id {{ department.id }}">delete</i> 
                                     Deletar

@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.urls import reverse
+
+from apps.departments.signals import atualizar_usuarios_no_grupo
 
 from .models import Department
 from .forms import DepartmentForm, DeleteDepartmentForm
@@ -9,6 +11,7 @@ from .forms import DepartmentForm, DeleteDepartmentForm
 
 # Listar gestões
 @login_required
+@permission_required("departments.view_department", raise_exception=True)
 def index(request):
 
     department_list = Department.objects.all()
@@ -22,6 +25,7 @@ def index(request):
 
 # Detalhar gestão
 @login_required
+@permission_required("departments.view_department", raise_exception=True)
 def detail(request, id):
     department = get_object_or_404(Department, pk=id)
 
@@ -34,6 +38,7 @@ def detail(request, id):
 
 # Criar nova gestão
 @login_required
+@permission_required("departments.add_department", raise_exception=True)
 def create(request):
 
     form = DepartmentForm()
@@ -42,11 +47,15 @@ def create(request):
         form = DepartmentForm(request.POST)
 
         if form.is_valid():
-            form.save()
-            messages.success(request, "Gestão criada com sucesso")
+            instance = form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+            form.save_m2m()
+            atualizar_usuarios_no_grupo(instance)
+            messages.success(request, "Departamento criada com sucesso")
             return redirect(reverse('list-departments'))
         else:
-            messages.error(request, "Erro ao criar gestão")
+            messages.error(request, "Erro ao criar departamento")
 
     context = {
         "is_create": True,
@@ -57,6 +66,7 @@ def create(request):
 
 # Editar gestão
 @login_required
+@permission_required("departments.change_department", raise_exception=True)
 def edit(request, id):
 
     department = get_object_or_404(Department, pk=id)
@@ -65,11 +75,12 @@ def edit(request, id):
         form = DepartmentForm(request.POST, instance=department)
 
         if form.is_valid():
-            form.save()
-            messages.success(request, "Gestão criada com sucesso")
+            department = form.save()
+            atualizar_usuarios_no_grupo(department)
+            messages.success(request, "Departamento criada com sucesso")
             return redirect(reverse('list-departments'))
         else:
-            messages.error(request, "Erro ao editar gestão")
+            messages.error(request, "Erro ao editar departamento")
     else:
         form = DepartmentForm(instance=department)
 
@@ -82,6 +93,7 @@ def edit(request, id):
 
 # Deletar gestão
 @login_required
+@permission_required("departments.delete_department", raise_exception=True)
 def delete(request, id):
 
     department = get_object_or_404(Department, pk=id)
@@ -90,10 +102,10 @@ def delete(request, id):
 
         try:
             department.delete()
-            messages.success(request, "Gestão deletada com sucesso")
+            messages.success(request, "Departamento deletada com sucesso")
             return redirect(reverse('list-departments'))
         except:
-            messages.error(request, "Erro ao deletar gestão")
+            messages.error(request, "Erro ao deletar departamento")
 
     form = DeleteDepartmentForm(instance=department)
 

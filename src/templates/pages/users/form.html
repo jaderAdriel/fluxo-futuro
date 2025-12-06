@@ -8,7 +8,7 @@
             {% include "components/card_header.html" with title="Usuário" %}
 
             <div class="card-body h-100">
-                <form action="." class="h-100 w-full px-4 " method="post">
+                <form action="." class="h-100 w-full px-4 " method="post" novalidate>
                     {% csrf_token %}
                     
                     <div class="row mt-4">
@@ -69,6 +69,19 @@
                             </div>
                         </div>
                     </div>
+
+                    {% if form.password %}
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.password|as_crispy_field }}</div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.password2|as_crispy_field }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+
 
                     <div class="row">
                         <div class="col-md-6">

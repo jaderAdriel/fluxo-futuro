@@ -15,42 +15,42 @@
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-  <a class="nav-link {% activeMenu 'meetings' %}" href="{% url 'list-meetings' %}">
+          <a class="nav-link has-sub {% activeMenu 'dashboard' %}" href="{% url 'dashboard' %}">
             <i class="material-symbols-rounded opacity-5">dashboard</i>
             <span class="nav-link-text ms-1">Visão geral</span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {% activeMenu 'finance' %}" href="{% url 'list-finances'%}">
+          <a class="nav-link has-sub {% activeMenu 'finance' %}" href="{% url 'list-finances'%}">
             <i class="material-symbols-rounded opacity-5">currency_exchange</i>
             <span class="nav-link-text ms-1">Financeiro</span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {% activeMenu 'events' %}" href="{% url 'list-events'%}">
+          <a class="nav-link has-sub {% activeMenu 'events' %}" href="{% url 'list-events'%}">
             <i class="material-symbols-rounded opacity-5">category</i>
             <span class="nav-link-text ms-1">Eventos</span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {% activeMenu 'meetings' %}" href="{% url 'list-meetings'%}">
+          <a class="nav-link has-sub {% activeMenu 'meetings' %}" href="{% url 'list-meetings'%}">
             <i class="material-symbols-rounded opacity-5">calendar_add_on</i>
             <span class="nav-link-text ms-1">Reuniões</span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {% activeMenu 'meetings' %}" href="{% url 'list-users'%}">
+          <a class="nav-link  has-sub {% activeMenu 'users' %}" href="{% url 'list-users'%}">
             <i class="material-symbols-rounded opacity-5">group</i>
             <span class="nav-link-text ms-1">Usuários</span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {% activeMenu 'departments' %}" href="{% url 'list-departments'%}">
+          <a class="nav-link  has-sub {% activeMenu 'departments' %}" href="{% url 'list-departments'%}">
             <i class="material-symbols-rounded opacity-5">work</i>
             <span class="nav-link-text ms-1">Departamentos</span>
           </a>
