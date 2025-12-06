@@ -45,7 +45,7 @@ def create(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Usuário criada com sucesso")
+            messages.success(request, "Usuário criado com sucesso")
             return redirect(reverse('list-users'))
         else:
             messages.error(request, "Erro ao criar usuário")
@@ -69,7 +69,7 @@ def edit(request, id):
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Usuário criada com sucesso")
+            messages.success(request, "Usuário criado com sucesso")
             return redirect(reverse('list-users'))
         else:
             messages.error(request, "Erro ao editar usuário")
@@ -99,7 +99,7 @@ def delete(request, id):
 
         try:
             user.delete()
-            messages.success(request, "Usuário deletada com sucesso")
+            messages.success(request, "Usuário deletado com sucesso")
             return redirect(reverse('list-users'))
         except:
             messages.error(request, "Erro ao deletar usuário")

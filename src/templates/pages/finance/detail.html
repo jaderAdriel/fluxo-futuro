@@ -1,17 +1,69 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="row">
-    <div class="col-12 mt-4">
-        <div class="card min-vh-70">
-            {% include "components/card_header.html" with title="Detalhe .." %}
+  <div class="col-12 mt-4">
+    <div class="card min-vh-70">
 
-            <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
-            </div>
+      {% include "components/card_header.html" with title="Detalhes da Transação" %}
+
+      <div class="card-body">
+
+        <div class="row">
+          <!-- Tipo -->
+          <div class="col-md-4 mb-4">
+            <label class="text-muted text-sm d-block">Tipo</label>
+            {% if transaction.type == 'IN' %}
+              <span class="text-success">
+                <i class="material-symbols-rounded text-sm">trending_down</i>
+                Entrada
+              </span>
+            {% else %}
+              <span class="text-danger">
+                <i class="material-symbols-rounded text-sm">trending_up</i>
+                Saída
+              </span>
+            {% endif %}
+          </div>
+
+          <!-- Valor -->
+          <div class="col-md-4 mb-4">
+            <label class="text-muted text-sm d-block">Valor</label>
+            <h6 class="mb-0">
+              R$
+              {{ transaction.amount }}
+            </h6>
+          </div>
+
+          <!-- Data -->
+          <div class="col-md-4 mb-4">
+            <label class="text-muted text-sm d-block">Data</label>
+            <h6 class="mb-0">
+              {{ transaction.date|date:"d/m/Y" }}
+            </h6>
+          </div>
         </div>
+
+        <!-- Descrição -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <label class="text-muted text-sm d-block">Descrição</label>
+            <p class="text-dark">
+              {{ transaction.description }}
+            </p>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Botões -->
+        <div class="d-flex flex-row-reverse gap-2">
+          <a href="{% url 'list-finances' %}" class="btn btn-light">
+            Voltar
+          </a>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}

@@ -1,18 +1,27 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import Transaction
 from .forms import TransactionForm
 
 # Listar transações
+@login_required
+@permission_required("finance.view_transaction", raise_exception=True)
 def index(request):
     transactions = Transaction.objects.all().order_by('-date')
     return render(request, 'pages/finance/index.html', {'transactions': transactions})
 
+
 # Detalhar transação
+@login_required
+@permission_required("finance.view_transaction", raise_exception=True)
 def detail(request, id):
     transaction = get_object_or_404(Transaction, id=id)
     return render(request, 'pages/finance/detail.html', {'transaction': transaction})
 
+
 # Criar nova transação
+@login_required
+@permission_required("finance.create_transaction", raise_exception=True)
 def create(request):
     if request.method == 'POST':
         form = TransactionForm(request.POST)
@@ -24,7 +33,10 @@ def create(request):
     context = {"form": form, "is_create": True}
     return render(request, 'pages/finance/form.html', context)
 
+
 # Editar transação
+@login_required
+@permission_required("finance.change_transaction", raise_exception=True)
 def edit(request, id):
     transaction = get_object_or_404(Transaction, id=id)
     if request.method == 'POST':
@@ -37,7 +49,10 @@ def edit(request, id):
     context = {"form": form, "is_edit": True}
     return render(request, 'pages/finance/form.html', context)
 
+
 # Deletar transação
+@login_required
+@permission_required("finance.delete_transaction", raise_exception=True)
 def delete(request, id):
     transaction = get_object_or_404(Transaction, id=id)
     if request.method == 'POST':

@@ -5,17 +5,9 @@
 <div class="row">
   <div class="col-12 mt-4">
     <div class="card min-vh-70">
-      {% if is_create %}
-        {% include "components/card_header.html" with title="Nova transação" %}
-      {% elif is_edit %}
-        {% include "components/card_header.html" with title="Editar transação" %}
-      {% elif is_delete %}
-        {% include "components/card_header.html" with title="Excluir transação" %}
-      {% else %}
         {% include "components/card_header.html" with title="Transação" %}
-      {% endif %}
 
-      <div class="card-body h-100">
+      <div class="card-body h-100 p-4">
         <form action="." method="post" class="h-100 w-full">
           {% csrf_token %}
 

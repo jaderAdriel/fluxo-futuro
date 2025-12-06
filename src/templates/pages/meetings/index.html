@@ -9,73 +9,71 @@
   <div class="col-12 mt-4">
     <div class="card min-vh-70">
       {% include "components/card_header.html" with title="Reuniões" %}
-
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center px-3 mb-3">
-            <h6 class="mb-0">Reuniões</h6>
-            <a href="{% url 'create-meeting' %}" class="btn btn-primary btn-sm">
-              Nova reunião
-            </a>
-          </div>
-
-          <div class="table-responsive p-0">
-            <table class="table align-items-center mb-0">
-              <thead>
-                <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Título</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">Data/Horario</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Local</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Descrição</th>
-                  <th class="text-secondary opacity-7 text-center">Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for m in meetings %}
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ m.title }}</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-center text-xs font-weight-bold mb-0">
-                        {{ m.date|date:"d/m/Y H:i" }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="text-center text-xs font-weight-bold mb-0">
-                        {{ m.location|default:"-" }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="text-center text-xs text-secondary mb-0">
-                        {{ m.description|default:"-" }}
-                      </p>
-                    </td>
-                    <td class="text-center align-middle">
-                      <a href="{% url 'edit-meeting' m.id %}" class="btn btn-outline-secondary btn-sm mx-1">
-                         Editar
-                      </a>
-                     <a href="{% url 'delete-meeting' m.id %}" class="btn btn-outline-danger btn-sm mx-1">
-                          Excluir
-                     </a>
-                    </td>
-                  </tr>
-                {% empty %}
-                  <tr>
-                    <td colspan="5" class="text-center py-4 text-sm text-secondary">
-                      Nenhuma reunião cadastrada.
-                    </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+      
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+          <h6 class="mb-0">Reuniões</h6>
+          {% if perms.meetings.add_meeting %}
+          <a href="{% url 'create-meeting' %}" class="btn btn-primary btn-sm">
+            Nova reunião
+          </a>
+          {% endif %}
         </div>
+        
+        <div class="p-0">
+          <table class="datatable mb-0" id="table"
+            data-columns='[
+                {"title": "Título", "field": "title", "headerFilter": "input"},
+                {"title": "Data/Horário", "field": "date", "headerFilter": "input"},
+                {"title": "Local", "field": "local", "headerFilter": "input", "hozAlign":"center", "formatter":"tickCross", "mutator": "boolean",  "widthGrow": 0},
+                {"title": "Ações", "field": "actions", "headerSort": "false", "formatter": "html"}
+            ]'
+          >
+            <thead>
+              <tr>
+                <th class="">Título</th>
+                <th class="">Data/Horário</th>
+                <th class="">Local</th>
+                <th class="">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
 
+              {% for m in meetings %}
+                <tr>
+                  <td data-field="title" class=""> {{ m.title}}  </td>
+                  <td data-field="date" class="">{{ m.date|date:"d/m/Y H:i" }}</td>
+                  <td data-field="location" class="">{{ m.location|default:"-" }}</td>
+                  <td data-field="actions" class="d-flex">
+                      <div class="d-flex justify-content-between">
+                        {% if perms.meetings.detail_meeting %}
+                          <a href="{% url 'detail-meeting' m.id %}" class="text-muted">
+                            <i class="material-symbols-rounded text-sm" title="Detalhar departamento com id {{ m.id }}">eye_tracking</i>
+                            Detalhar
+                          </a>
+                        {% endif %}
+                        {% if perms.meetings.change_meeting %}
+                          <a href="{% url 'edit-meeting' m.id %}" class="text-muted text-sm ">
+                            <i class="material-symbols-rounded text-sm" title="Alterar departamento com id {{ m.id }}">edit</i> 
+                            Editar
+                          </a>
+                        {% endif %}
+                        {% if perms.meetings.delete_meeting %}
+                          <a href="{% url 'delete-meeting' m.id %}" class="text-muted">
+                            <i class="material-symbols-rounded text-sm" title="Deletar departamento com id {{ m.id }}">delete</i> 
+                            Deletar
+                          </a>
+                        {% endif %}
+                      </div>
 
+                  </td>
+                </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

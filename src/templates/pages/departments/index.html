@@ -10,7 +10,7 @@
         <div class="card min-vh-70">
             {% include "components/card_header.html" with title="Departamentos" %}
   
-            <div class="card-body">
+            <div class="card-body p-4">
                 {% if perms.departments.add_department %}
                 <div class="d-flex justify-content-end">
                     <a href="{% url 'create-department' %}" class="btn btn-primary">
