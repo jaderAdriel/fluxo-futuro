@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+    {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Transações" %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mt-4">
+        <div class="card min-vh-70">
+            {% include "components/card_header.html" with title="Usuários" %}
+  
+            <div class="card-body">
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'create-user' %}" class="btn btn-primary">
+                      Criar usuário
+                    </a>
+                </div>
+                
+                <div class="p-0">
+                  <table class="datatable mb-0" id="table"
+                    data-columns='[
+                        {"title": "Nome", "field": "name", "headerFilter": "input"},
+                        {"title": "E-mail", "field": "email", "headerFilter": "input"},
+                        {"title": "Ativo", "field": "is_active", "headerFilter": "input", "hozAlign":"center", "formatter":"tickCross", "mutator": "boolean",  "widthGrow": 0},
+                        {"title": "Admin", "field": "is_superuser", "headerFilter": "input", "hozAlign":"center", "formatter":"tickCross", "mutator": "boolean",  "widthGrow": 0},
+                        {"title": "Ações", "field": "actions", "headerSort": "false", "formatter": "html"}
+                    ]'
+                  >
+                    <thead>
+                      <tr>
+                        <th class="">Nome</th>
+                        <th class="">E-mail</th>
+                        <th class="">Ativo</th>
+                        <th class="">Admin</th>
+                        <th class="">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {% for user in user_list%}
+                        <tr>
+                          <td data-field="name" class=""> {{ user.username}}  </td>
+                          <td data-field="email" class="">{{ user.email}}</td>
+                          <td data-field="is_active" class="">{{ user.is_active}}</td>
+                          <td data-field="is_superuser" class="">{{ user.is_superuser }}</td>
+                          <td data-field="actions" class="d-flex">
+                              <div class="d-flex justify-content-between">
+                                {% if perms.user.detail_user %}
+                                  <a href="{% url 'detail-user' user.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Detalhar departamento com id {{ user.id }}">eye_tracking</i>
+                                    Detalhar
+                                  </a>
+                                {% endif %}
+                                {% if perms.user.change_user %}
+                                  <a href="{% url 'edit-user' user.id %}" class="text-muted text-sm ">
+                                    <i class="material-symbols-rounded text-sm" title="Alterar departamento com id {{ user.id }}">edit</i> 
+                                    Editar
+                                  </a>
+                                {% endif %}
+                                {% if perms.user.delete_user %}
+                                  <a href="{% url 'delete-user' user.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Deletar departamento com id {{ user.id }}">delete</i> 
+                                    Deletar
+                                  </a>
+                                {% endif %}
+                              </div>
+
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
