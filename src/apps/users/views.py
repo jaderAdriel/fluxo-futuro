@@ -9,7 +9,7 @@ from .forms import UserForm, DeleteUserForm
 
 # Listar usuários
 @login_required
-@permission_required("users.view_user", raise_exception=True)
+@permission_required("auth.view_user", raise_exception=True)
 def index(request):
 
     user_list = User.objects.all()
@@ -23,7 +23,7 @@ def index(request):
 
 # Detalhar usuário
 @login_required
-@permission_required("users.view_user", raise_exception=True)
+@permission_required("auth.view_user", raise_exception=True)
 def detail(request, id):
     user = get_object_or_404(User, pk=id)
 
@@ -35,7 +35,7 @@ def detail(request, id):
 
 
 @login_required
-@permission_required("users.add_user", raise_exception=True)
+@permission_required("auth.add_user", raise_exception=True)
 def create(request):
 
     form = UserForm()
@@ -59,7 +59,7 @@ def create(request):
 
 # Editar usuário
 @login_required
-@permission_required("users.change_user", raise_exception=True)
+@permission_required("auth.change_user", raise_exception=True)
 def edit(request, id):
 
     user = get_object_or_404(User, pk=id)
@@ -90,7 +90,7 @@ def edit(request, id):
 
 # Deletar usuário
 @login_required
-@permission_required("users.delete_user", raise_exception=True)
+@permission_required("auth.delete_user", raise_exception=True)
 def delete(request, id):
 
     user = get_object_or_404(User, pk=id)

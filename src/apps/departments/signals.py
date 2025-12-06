@@ -37,9 +37,8 @@ def department_membro_changed(sender, instance, action, pk_set, **kwargs):
                 usuario.groups.remove(instance)
     
     elif action == "post_clear":
-        #Todos os membros foram removidos do department
-        #Remove todos os usuários do grupo
-        for usuario in instance.user_set.all():
+        usuarios = User.objects.filter(pk__in=pk_set)
+        for usuario in usuarios:
             usuario.groups.remove(instance)
 
 

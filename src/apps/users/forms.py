@@ -16,7 +16,7 @@ class UserForm(forms.ModelForm):
     )
 
     permissions = forms.ModelMultipleChoiceField(
-        queryset=Permission.objects.filter(id__gte=25).exclude(codename__contains='token'),
+        queryset=Permission.objects.exclude(codename__contains='token'),
         required=False,
         widget=forms.CheckboxSelectMultiple(attrs={
             'class': 'switch-input form-check-input',
@@ -98,7 +98,10 @@ class UserForm(forms.ModelForm):
 
         depts = self.cleaned_data.get('departments')
         
-        if depts is not None:
+        for dept in user.member_department.all():
+            dept.members.remove(user)
+
+        if depts:
             for dep in depts:
                 Department.objects.get(pk=dep.pk).members.add(user)
 

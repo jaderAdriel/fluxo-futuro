@@ -46,7 +46,7 @@
                   <td data-field="location" class="">{{ m.location|default:"-" }}</td>
                   <td data-field="actions" class="d-flex">
                       <div class="d-flex justify-content-between">
-                        {% if perms.meetings.detail_meeting %}
+                        {% if perms.meetings.view_meeting %}
                           <a href="{% url 'detail-meeting' m.id %}" class="text-muted">
                             <i class="material-symbols-rounded text-sm" title="Detalhar departamento com id {{ m.id }}">eye_tracking</i>
                             Detalhar

@@ -12,9 +12,11 @@
   
             <div class="card-body">
                 <div class="d-flex justify-content-end mb-3">
+                    {% if perms.events.add_event %}
                     <a href="{% url 'create-event' %}" class="btn btn-primary">
                         Criar evento
                     </a>
+                    {% endif %}
                 </div>
                 
                 <div class="p-0">
@@ -42,18 +44,25 @@
                           <td data-field="location">{{ event.location }}</td>
                           <td data-field="actions" class="d-flex gap-2">
                               <div class="d-flex justify-content-between gap-3">
+                                  {% if perms.events.view_event %}
                                   <a href="{% url 'detail-event' event.id %}" class="text-muted">
                                     <i class="material-symbols-rounded text-sm" title="Detalhar evento com id {{ event.id }}">eye_tracking</i>
                                     Detalhar
                                   </a>
+                                  {% endif %}
+
+                                  {% if perms.events.change_event %}
                                   <a href="{% url 'edit-event' event.id %}" class="text-muted text-sm ">
                                     <i class="material-symbols-rounded text-sm" title="Alterar evento com id {{ event.id }}">edit</i> 
                                     Editar
                                   </a>
+                                  {% endif %}
+                                  {% if perms.events.delete_event %}
                                   <a href="{% url 'delete-event' event.id %}" class="text-muted">
                                     <i class="material-symbols-rounded text-sm" title="Deletar evento com id {{ event.id }}">delete</i> 
                                     Deletar
                                   </a>
+                                  {% endif %}
                               </div>
                           </td>
                         </tr>

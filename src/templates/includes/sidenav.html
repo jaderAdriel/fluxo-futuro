@@ -21,40 +21,50 @@
           </a>
         </li>
 
+        {% if perms.finance.view_transaction %}
         <li class="nav-item">
           <a class="nav-link has-sub {% activeMenu 'finance' %}" href="{% url 'list-finances'%}">
             <i class="material-symbols-rounded opacity-5">currency_exchange</i>
             <span class="nav-link-text ms-1">Financeiro</span>
           </a>
         </li>
+        {% endif %}
 
+        {% if perms.events.view_event %}
         <li class="nav-item">
           <a class="nav-link has-sub {% activeMenu 'events' %}" href="{% url 'list-events'%}">
             <i class="material-symbols-rounded opacity-5">category</i>
             <span class="nav-link-text ms-1">Eventos</span>
           </a>
         </li>
+        {% endif %}
 
+        {% if perms.meetings.view_meeting %}
         <li class="nav-item">
           <a class="nav-link has-sub {% activeMenu 'meetings' %}" href="{% url 'list-meetings'%}">
             <i class="material-symbols-rounded opacity-5">calendar_add_on</i>
             <span class="nav-link-text ms-1">Reuniões</span>
           </a>
         </li>
+        {% endif %}
 
+        {% if perms.auth.view_user %}
         <li class="nav-item">
           <a class="nav-link  has-sub {% activeMenu 'users' %}" href="{% url 'list-users'%}">
             <i class="material-symbols-rounded opacity-5">group</i>
             <span class="nav-link-text ms-1">Usuários</span>
           </a>
         </li>
+        {% endif %}
 
+        {% if perms.departments.view_department %}
         <li class="nav-item">
           <a class="nav-link  has-sub {% activeMenu 'departments' %}" href="{% url 'list-departments'%}">
             <i class="material-symbols-rounded opacity-5">work</i>
             <span class="nav-link-text ms-1">Departamentos</span>
           </a>
         </li>
+        {% endif %}
         
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Perfil</h6>
