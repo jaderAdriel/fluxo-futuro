@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-    {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Transações" %}
+    {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Eventos" %}
 {% endblock %}
 
 {% block content %}
@@ -9,26 +9,63 @@
     <div class="col-12 mt-4">
         <div class="card min-vh-70">
             {% include "components/card_header.html" with title="Eventos" %}
-
+  
             <div class="card-body">
-                <div class="card-body">
-                    {% if events %}
-                        <ul>
-                            {% for event in events %}
-                                <li>
-                                    <strong>{{ event.title }}</strong><br>
-                                    {{ event.date }} - {{ event.location }}<br>
-                                    {{ event.description }}
-                                    <a href="{% url 'edit-event' event.id %}" class="btn btn-sm btn-secondary">Editar</a>
-                                    <a href="{% url 'delete-event' event.id %}" class="btn btn-sm btn-danger">Excluir</a>
-                                    <a href="{% url 'detail-event' event.id %}" class="btn btn-sm btn-info">Detalhes</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p class="text-sm">Nenhum evento cadastrado.</p>
-                    {% endif %}
-                    <a href="{% url 'create-event' %}" class="btn btn-primary">Novo evento</a>
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="{% url 'create-event' %}" class="btn btn-primary">
+                        Criar evento
+                    </a>
+                </div>
+                
+                <div class="p-0">
+                  <table class="datatable mb-0" id="table"
+                    data-columns='[
+                        {"title": "Título", "field": "title", "headerFilter": "input"},
+                        {"title": "Data", "field": "date", "headerFilter": "input"},
+                        {"title": "Local", "field": "location", "headerFilter": "input"},
+                        {"title": "Ações", "field": "actions", "headerSort": "false", "formatter": "html"}
+                    ]'
+                  >
+                    <thead>
+                      <tr>
+                        <th class="">Título</th>
+                        <th class="">Data</th>
+                        <th class="">Local</th>
+                        <th class="">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for event in events %}
+                        <tr>
+                          <td data-field="title">{{ event.title }}</td>
+                          <td data-field="date">{{ event.date }}</td>
+                          <td data-field="location">{{ event.location }}</td>
+                          <td data-field="actions" class="d-flex gap-2">
+                              <div class="d-flex justify-content-between gap-3">
+                                  <a href="{% url 'detail-event' event.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Detalhar evento com id {{ event.id }}">eye_tracking</i>
+                                    Detalhar
+                                  </a>
+                                  <a href="{% url 'edit-event' event.id %}" class="text-muted text-sm ">
+                                    <i class="material-symbols-rounded text-sm" title="Alterar evento com id {{ event.id }}">edit</i> 
+                                    Editar
+                                  </a>
+                                  <a href="{% url 'delete-event' event.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Deletar evento com id {{ event.id }}">delete</i> 
+                                    Deletar
+                                  </a>
+                              </div>
+                          </td>
+                        </tr>
+                      {% empty %}
+                        <tr>
+                          <td colspan="4" class="text-sm text-muted">
+                            Nenhum evento cadastrado.
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
                 </div>
             </div>
         </div>
