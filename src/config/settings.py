@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'django_vite',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     'apps.accounts',
     'apps.dashboard',
@@ -130,6 +132,9 @@ USE_TZ = True
 LOGIN_URL = '/access/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/acesso/login/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

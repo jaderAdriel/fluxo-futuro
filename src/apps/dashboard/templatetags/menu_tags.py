@@ -7,7 +7,7 @@ register = template.Library()
 def activeMenu(context, url_name):
     try:
         if url_name in context['request'].resolver_match.url_name:
-            return 'active bg-gradient-dark text-white'
+            return 'active bg-gradient-dark text-dark'
     except:
         pass
     return 'text-dark'
