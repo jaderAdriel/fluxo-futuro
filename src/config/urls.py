@@ -12,4 +12,5 @@ urlpatterns = [
     path('events/', include("apps.events.urls")),
     path('meetings/', include("apps.meetings.urls")),
     path('permissions/', include("apps.permissions.urls")),
+    path('events/', include('apps.events.urls'))
 ]
