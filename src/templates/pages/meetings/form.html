@@ -1,17 +1,69 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="row">
-    <div class="col-12 mt-4">
-        <div class="card min-vh-70">
-            {% include "components/card_header.html" with title="Formulário .." %}
+  <div class="col-12 mt-4">
+    <div class="card min-vh-70">
+      {% if is_create %}
+        {% include "components/card_header.html" with title="Nova reunião" %}
+      {% elif is_edit %}
+        {% include "components/card_header.html" with title="Editar reunião" %}
+      {% elif is_delete %}
+        {% include "components/card_header.html" with title="Excluir reunião" %}
+      {% else %}
+        {% include "components/card_header.html" with title="Reunião" %}
+      {% endif %}
 
-            <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
+      <div class="card-body h-100 p-4">
+        <form action="." method="post" class="h-100 w-full">
+          {% csrf_token %}
+
+          {% if is_delete %}
+            <p class="text-sm mb-4">
+              Tem certeza que deseja excluir a reunião
+              <strong>{{ meeting.title }}</strong>?
+            </p>
+          {% else %}
+            <div class="row pt-0 w-full">
+              <div class="row mt-4">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    {{ form.title|as_crispy_field }}
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    {{ form.date|as_crispy_field }}
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    {{ form.location|as_crispy_field }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div class="form-group">
+                    {{ form.description|as_crispy_field }}
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          {% endif %}
+
+          <div class="w-full d-flex flex-row-reverse gap-2 p-4">
+            <button class="btn btn-primary" type="submit">
+              {% if is_delete %}Confirmar exclusão{% elif is_create %}Salvar{% else %}Atualizar{% endif %}
+            </button>
+            <a class="btn btn-light" href="{% url 'list-meetings' %}">Voltar</a>
+          </div>
+        </form>
+      </div>
+
     </div>
+  </div>
 </div>
 {% endblock %}

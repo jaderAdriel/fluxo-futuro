@@ -1,19 +1,76 @@
 {% extends "base.html" %}
 
-{% block breadcrumb %}
-    {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Transações" %}
-{% endblock %}
-
 {% block content %}
 <div class="row">
     <div class="col-12 mt-4">
         <div class="card min-vh-70">
             {% include "components/card_header.html" with title="Finanças" %}
+  
+            <div class="card-body p-4">
+                {% if perms.finance.add_transaction %}
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'create-finance' %}" class="btn btn-primary">
+                      Criar transação
+                    </a>
+                </div>
+                {% endif %}
+                <div class="p-0">
+                  <table class="datatable mb-0" id="table"
+                    data-columns='[
+                        {"title": "Tipo", "field": "type", "headerFilter": "input", "formatter": "html" },
+                        {"title": "Valor", "field": "amount", "headerFilter": "input"},
+                        {"title": "Data", "field": "date", "headerFilter": "input"},
+                        {"title": "Ações", "field": "actions", "headerSort": "false", "formatter": "html"}
+                    ]'
+                  >
+                    <thead>
+                      <tr>
+                        <th>Tipo</th>
+                        <th class="">Valor</th>
+                        <th class="">Data</th>
+                        <th class="">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
 
-            <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
+                      {% for t in transactions%}
+                        <tr>
+                          <td data-field="type">
+                            {% if t.type == 'IN' %}<span class="text-success text-align-center"> <i class="material-symbols-rounded text-sm">trending_up</i> Entrada</span>{% endif %}
+                            {% if t.type == 'OUT' %}<span class="text-danger text-align-center"> <i class="material-symbols-rounded text-sm">trending_down</i> Saída</span>{% endif %}
+                          </td>
+
+                          <td data-field="amount" class="">{{ t.amount}}</td>
+                          <td data-field="date" class="">{{ t.date|date:"d/m/Y" }}</td>
+                          <td data-field="actions" class="d-flex">
+                              <div class="d-flex justify-content-between">
+                                {% if perms.finance.view_transaction %}
+                                  <a href="{% url 'detail-finance' t.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Detalhar transação com id {{ t.id }}">eye_tracking</i>
+                                    Detalhar
+                                  </a>
+                                {% endif %}
+                                {% if perms.finance.change_transaction %}
+                                  <a href="{% url 'edit-finance' t.id %}" class="text-muted text-sm ">
+                                    <i class="material-symbols-rounded text-sm" title="Alterar transação com id {{ t.id }}">edit</i> 
+                                    Editar
+                                  </a>
+                                {% endif %}
+                                {% if perms.finance.delete_transaction %}
+                                  <a href="{% url 'delete-finance' t.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Deletar transação com id {{ t.id }}">delete</i> 
+                                    Deletar
+                                  </a>
+                                {% endif %}
+                              </div>
+
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
             </div>
         </div>
     </div>

@@ -38,14 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'django_vite',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
-    'apps.accounts',
     'apps.dashboard',
+    'apps.users',
     'apps.events',
     'apps.finance',
     'apps.meetings',
-    'apps.managements',
-    'apps.notifications',
+    'apps.departments',
 ]
 
 MIDDLEWARE = [
@@ -129,7 +130,10 @@ USE_TZ = True
 # ---------------------------------------------------------------------
 LOGIN_URL = '/access/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/acesso/login/'
+LOGOUT_REDIRECT_URL = '/access/login/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -144,7 +148,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = "accounts.User"
 
 # Configuração do Django-Vite
 DJANGO_VITE = {

@@ -1,21 +1,80 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-    {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Transações" %}
+  {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Reuniões" %}
 {% endblock %}
 
 {% block content %}
 <div class="row">
-    <div class="col-12 mt-4">
-        <div class="card min-vh-70">
-            {% include "components/card_header.html" with title="Reuniões" %}
-
-            <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
-            </div>
+  <div class="col-12 mt-4">
+    <div class="card min-vh-70">
+      {% include "components/card_header.html" with title="Reuniões" %}
+      
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+          <h6 class="mb-0">Reuniões</h6>
+          {% if perms.meetings.add_meeting %}
+          <a href="{% url 'create-meeting' %}" class="btn btn-primary btn-sm">
+            Nova reunião
+          </a>
+          {% endif %}
         </div>
+        
+        <div class="p-0">
+          <table class="datatable mb-0" id="table"
+            data-columns='[
+                {"title": "Título", "field": "title", "headerFilter": "input"},
+                {"title": "Data/Horário", "field": "date", "headerFilter": "input"},
+                {"title": "Local", "field": "local", "headerFilter": "input", "hozAlign":"center", "formatter":"tickCross", "mutator": "boolean",  "widthGrow": 0},
+                {"title": "Ações", "field": "actions", "headerSort": "false", "formatter": "html"}
+            ]'
+          >
+            <thead>
+              <tr>
+                <th class="">Título</th>
+                <th class="">Data/Horário</th>
+                <th class="">Local</th>
+                <th class="">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for m in meetings %}
+                <tr>
+                  <td data-field="title" class=""> {{ m.title}}  </td>
+                  <td data-field="date" class="">{{ m.date|date:"d/m/Y H:i" }}</td>
+                  <td data-field="location" class="">{{ m.location|default:"-" }}</td>
+                  <td data-field="actions" class="d-flex">
+                      <div class="d-flex justify-content-between">
+                        {% if perms.meetings.view_meeting %}
+                          <a href="{% url 'detail-meeting' m.id %}" class="text-muted">
+                            <i class="material-symbols-rounded text-sm" title="Detalhar departamento com id {{ m.id }}">eye_tracking</i>
+                            Detalhar
+                          </a>
+                        {% endif %}
+                        {% if perms.meetings.change_meeting %}
+                          <a href="{% url 'edit-meeting' m.id %}" class="text-muted text-sm ">
+                            <i class="material-symbols-rounded text-sm" title="Alterar departamento com id {{ m.id }}">edit</i> 
+                            Editar
+                          </a>
+                        {% endif %}
+                        {% if perms.meetings.delete_meeting %}
+                          <a href="{% url 'delete-meeting' m.id %}" class="text-muted">
+                            <i class="material-symbols-rounded text-sm" title="Deletar departamento com id {{ m.id }}">delete</i> 
+                            Deletar
+                          </a>
+                        {% endif %}
+                      </div>
+
+                  </td>
+                </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}

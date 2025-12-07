@@ -1,15 +1,49 @@
 {% extends "base.html" %}
 
+{% block breadcrumb %}
+    {% include "components/breadcrumb.html" with parent="Eventos" parent_url="/events/" current="Detalhes do Evento" %}
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-12 mt-4">
         <div class="card min-vh-70">
-            {% include "components/card_header.html" with title="Detalhe .." %}
+            {% include "components/card_header.html" with title="Detalhes do Evento" %}
 
-            <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
+            <div class="card-body px-4">
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h6 class="text-secondary">Título</h6>
+                        <p class="text-dark text-sm">{{ event.title }}</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6 class="text-secondary">Data</h6>
+                        <p class="text-dark text-sm">{{ event.date }}</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6 class="text-secondary">Local</h6>
+                        <p class="text-dark text-sm">{{ event.location }}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h6 class="text-secondary">Descrição</h6>
+                        <p class="text-dark text-sm">
+                            {{ event.description|default:"Sem descrição." }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full d-flex justify-content-end mt-4 gap-2">
+                    <a href="{% url 'edit-event' event.id %}" class="btn btn-primary">Editar</a>
+                    <a href="{% url 'delete-event' event.id %}" class="btn btn-danger">Excluir</a>
+                    <a href="{% url 'list-events' %}" class="btn btn-light">Voltar</a>
+                </div>
+
             </div>
         </div>
     </div>

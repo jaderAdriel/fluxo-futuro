@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+    {% include "components/breadcrumb.html" with parent="Dashboard" parent_url="/dashboard/" current="Transações" %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mt-4">
+        <div class="card min-vh-70">
+            {% include "components/card_header.html" with title="Departamentos" %}
+  
+            <div class="card-body p-4">
+                {% if perms.departments.add_department %}
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'create-department' %}" class="btn btn-primary">
+                      Criar gestão
+                    </a>
+                </div>
+                {% endif %}
+                <div class="p-0">
+                  <table class="datatable mb-0" id="table"
+                    data-columns='[
+                        {"title": "Nome", "field": "name", "headerFilter": "input"},
+                        {"title": "Membros", "field": "members", "headerFilter": "input"},
+                        {"title": "Ativo", "field": "is_active", "headerFilter": "input", "hozAlign":"center", "formatter":"tickCross", "mutator": "boolean",  "widthGrow": 0},
+                        {"title": "Criado em", "field": "created"},
+                        {"title": "Ações", "field": "actions", "headerSort": "false", "formatter": "html"}
+                    ]'
+                  >
+                    <thead>
+                      <tr>
+                        <th class="">Nome</th>
+                        <th class="">Membros</th>
+                        <th class="">Ativo</th>
+                        <th class="">Criado em</th>
+                        <th class="">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {% for department in department_list%}
+                        <tr>
+                          <td data-field="name" class="">{{ department.name}}</td>
+                          <td data-field="members" class="">{{ department.members.count}}</td>
+                          <td data-field="is_active" class="">{{ department.is_active}}</td>
+                          <td data-field="created" class="">{{ department.created_at }}</td>
+                          <td data-field="actions" class="d-flex">
+                              <div class="d-flex justify-content-between">
+                                {% if perms.departments.view_department %}
+                                  <a href="{% url 'detail-department' department.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Detalhar departamento com id {{ department.id }}">eye_tracking</i>
+                                    Detalhar
+                                  </a>
+                                {% endif %}
+                                {% if perms.departments.change_department %}
+                                  <a href="{% url 'edit-department' department.id %}" class="text-muted text-sm ">
+                                    <i class="material-symbols-rounded text-sm" title="Alterar departamento com id {{ department.id }}">edit</i> 
+                                    Editar
+                                  </a>
+                                {% endif %}
+                                {% if perms.departments.delete_department %}
+                                  <a href="{% url 'delete-department' department.id %}" class="text-muted">
+                                    <i class="material-symbols-rounded text-sm" title="Deletar departamento com id {{ department.id }}">delete</i> 
+                                    Deletar
+                                  </a>
+                                {% endif %}
+                              </div>
+
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

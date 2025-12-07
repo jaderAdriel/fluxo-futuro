@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mt-4">
+        <div class="card min-vh-70">
+            {% include "components/card_header.html" with title="Usuário" %}
+
+            <div class="card-body h-100">
+                <form action="." class="h-100 w-full px-4 " method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.first_name|as_crispy_field }}</div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.last_name|as_crispy_field }}</div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.email|as_crispy_field }}</div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.username|as_crispy_field }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="id_name" class="form-label requiredField">
+                                Departamentos que faz parte<span class="asteriskField">*</span>
+                            </label>
+                            {{ form.departments }}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch ps-0">
+                                <input 
+                                    class="form-check-input ms-auto" 
+                                    type="checkbox"
+                                    name="{{ form.is_superuser.html_name }}"
+                                    id="{{ form.is_superuser.id_for_label }}" 
+                                    {% if form.is_superuser.value %} 
+                                        checked
+                                    {% endif %}
+                                >
+                                <label 
+                                    class="form-check-label text-body ms-3 text-truncate w-80 mb-0" 
+                                    for="{{ form.is_superuser.id_for_label }}">
+                                    É admin
+                                </label>
+                            </div>
+                            <div class="form-check form-switch ps-0">
+                                <input 
+                                    class="form-check-input ms-auto" 
+                                    type="checkbox"
+                                    name="{{ form.is_active.html_name }}"
+                                    id="{{ form.is_active.id_for_label }}" 
+                                    {% if form.is_active.value %} 
+                                        checked
+                                    {% endif %}
+                                >
+                                <label 
+                                    class="form-check-label text-body ms-3 text-truncate w-80 mb-0" 
+                                    for="{{ form.is_active.id_for_label }}">
+                                    Está ativo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if form.password %}
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.password|as_crispy_field }}</div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">{{ form.password2|as_crispy_field }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="datatable" id="table"
+                                data-search="true"
+                                data-pagination="10"
+                                data-columns='[
+                                    {"title": "Permissão", "field": "name", "headerFilter": "input"},
+                                    {"title": "Selecionar", "field": "input", "formatter": "html"}
+                                ]'
+                            >
+                                <thead>
+                                    <tr>
+                                        <th>Permissão</th>
+                                        <th>Selecionar</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <!-- {% for perm in form.permissions %} -->
+                                        <tr>
+                                            <td data-field="name">{{ perm.choice_label }}</td>
+                                            <td data-field="input">{{ perm.tag }}</td>
+                                        </tr>
+                                    <!-- {% endfor %} -->
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="w-full d-flex flex-row-reverse gap-2 p-4">
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                        <a class="btn btn-light" href="{% url 'list-users' %}">Voltar</a>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

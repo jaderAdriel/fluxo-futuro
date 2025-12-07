@@ -1,15 +1,57 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="row">
     <div class="col-12 mt-4">
         <div class="card min-vh-70">
-            {% include "components/card_header.html" with title="Formulário .." %}
+            {% if is_create %}
+                {% include "components/card_header.html" with title="Novo evento" %}
+            {% elif is_edit %}
+                {% include "components/card_header.html" with title="Editar evento" %}
+            {% elif is_delete %}
+                {% include "components/card_header.html" with title="Excluir evento" %}
+            {% else %}
+                {% include "components/card_header.html" with title="Evento" %}
+            {% endif %}
 
-            <div class="card-body">
-                <p class="text-sm">
-                    Esta é uma página simples usando o layout base.
-                </p>
+            <div class="card-body h-100">
+                <form action="." class="h-100 w-full " method="post">
+                    {% csrf_token %}
+                    
+                    {% if not is_delete %}
+                        <div class="row pt-0 w-full">
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <div class="form-group">{{ form.title|as_crispy_field }}</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">{{ form.date|as_crispy_field }}</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">{{ form.location|as_crispy_field }}</div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="form-group">{{ form.description|as_crispy_field }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>Tem certeza que deseja excluir o evento "{{ event.title }}"?</p>
+                    {% endif %}
+
+                    <div class="w-full d-flex flex-row-reverse gap-2 p-4">
+                        {% if is_delete %}
+                            <button class="btn btn-danger" type="submit">Excluir</button>
+                        {% else %}
+                            <button class="btn btn-primary" type="submit">Salvar</button>
+                        {% endif %}
+
+                        <a class="btn btn-light" href="{% url 'list-events' %}">Voltar</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
