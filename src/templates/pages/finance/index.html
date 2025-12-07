@@ -7,7 +7,7 @@
             {% include "components/card_header.html" with title="Finanças" %}
   
             <div class="card-body p-4">
-                {% if perms.departments.add_department %}
+                {% if perms.finance.add_transaction %}
                 <div class="d-flex justify-content-end">
                     <a href="{% url 'create-finance' %}" class="btn btn-primary">
                       Criar transação
@@ -50,13 +50,13 @@
                                     Detalhar
                                   </a>
                                 {% endif %}
-                                {% if perms.finance.view_transaction %}
+                                {% if perms.finance.change_transaction %}
                                   <a href="{% url 'edit-finance' t.id %}" class="text-muted text-sm ">
                                     <i class="material-symbols-rounded text-sm" title="Alterar transação com id {{ t.id }}">edit</i> 
                                     Editar
                                   </a>
                                 {% endif %}
-                                {% if perms.finance.view_transaction %}
+                                {% if perms.finance.delete_transaction %}
                                   <a href="{% url 'delete-finance' t.id %}" class="text-muted">
                                     <i class="material-symbols-rounded text-sm" title="Deletar transação com id {{ t.id }}">delete</i> 
                                     Deletar
