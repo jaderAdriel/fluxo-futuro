@@ -21,7 +21,7 @@ def detail(request, id):
 
 # Criar nova transação
 @login_required
-@permission_required("finance.create_transaction", raise_exception=True)
+@permission_required("finance.add_transaction", raise_exception=True)
 def create(request):
     if request.method == 'POST':
         form = TransactionForm(request.POST)
