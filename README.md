@@ -6,6 +6,15 @@
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)
 ![uv](https://img.shields.io/badge/uv-Fast%20Package%20Manager-purple?style=for-the-badge)
 
+## 📹 Demonstração do Sistema
+
+Confira nosso vídeo explicativo detalhando o funcionamento e as principais funcionalidades do sistema:
+
+[![Assista ao Vídeo](https://img.youtube.com/vi/VP9DcIsrbc8/0.jpg)](https://youtu.be/VP9DcIsrbc8)
+
+> **Link direto:** [https://youtu.be/VP9DcIsrbc8](https://youtu.be/VP9DcIsrbc8)
+
+-----
 
 ## ⚡ Gerenciamento de Dependências com `uv`
 
